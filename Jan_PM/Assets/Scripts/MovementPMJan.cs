@@ -37,6 +37,18 @@ public class MovementPMJan : MonoBehaviour
             transform.Translate(Vector3.left * Time.deltaTime * moveSpeed);
         }
 
+        if (Input.GetKey(KeyCode.Space))
+        {
+            transform.Translate(Vector3.up * Time.deltaTime * moveSpeed);
+
+            //Rigidbody rb = GetComponent<Rigidbody>();
+            //rb.AddForce(Vector3.up * jumpForce);
+        }
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            transform.Translate(Vector3.down * Time.deltaTime * moveSpeed);
+        }
+
         #endregion
 
         #region Rotation using mouse
@@ -67,13 +79,5 @@ public class MovementPMJan : MonoBehaviour
 
 
     }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            Rigidbody rb = GetComponent<Rigidbody>();
-            rb.AddForce(Vector3.up * jumpForce);
-        }
-    }
+    
 }
