@@ -9,6 +9,7 @@ public class MovementPMJan : MonoBehaviour
     public float moveSpeed = 10f;
     public float turnSpeed = 50f;
     public float jumpForce;
+    public string mouseAxis;
 
     // Start is called before the first frame update
     void Start()
@@ -53,7 +54,7 @@ public class MovementPMJan : MonoBehaviour
 
         #region Rotation using mouse
 
-        transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * turnSpeed);
+        transform.Rotate(Vector3.up * Input.GetAxis(mouseAxis) * turnSpeed);
 
         #endregion
 
