@@ -11,6 +11,9 @@ public class MovementPMJan : MonoBehaviour
     public float jumpForce;
     public string mouseAxis;
 
+    public Vector3 handVelocity;
+    private Vector3 previousPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +61,8 @@ public class MovementPMJan : MonoBehaviour
 
         #endregion
 
+        handVelocity = (this.transform.position - previousPosition) / Time.deltaTime;
+        previousPosition = this.transform.position;
 
         #region Rotation using keyboard
         //if (input.getkey(keycode.e))

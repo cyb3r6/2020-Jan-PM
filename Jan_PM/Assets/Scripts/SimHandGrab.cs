@@ -7,6 +7,9 @@ public class SimHandGrab : MonoBehaviour
     public GameObject collidingObject;      // what we're touching
     public GameObject heldObject;           // what we're holding
 
+    public MovementPMJan controller;
+    public float throwForce;
+
     private void OnTriggerEnter(Collider other)
     {
         collidingObject = other.gameObject;
@@ -29,7 +32,8 @@ public class SimHandGrab : MonoBehaviour
             {
                 heldObject = collidingObject;
 
-                Grab();
+                //Grab();
+                AdvGrab();
             }
         }
 
@@ -37,7 +41,8 @@ public class SimHandGrab : MonoBehaviour
         {
             if (heldObject)
             {
-                Release();
+                //Release();
+                AdvRelease();
             }
         }
     }
@@ -52,7 +57,29 @@ public class SimHandGrab : MonoBehaviour
     {
         heldObject.GetComponent<Rigidbody>().useGravity = true;
         heldObject.GetComponent<Rigidbody>().isKinematic = false;
+
+        heldObject.GetComponent<Rigidbody>().velocity = controller.handVelocity * throwForce;
+
         heldObject.transform.SetParent(null);
         heldObject = null;
+    }
+
+    public void AdvGrab()
+    {
+        FixedJoint fx = gameObject.AddComponent<FixedJoint>();
+        fx.breakForce = 2000;
+        heldObject.transform.rotation = this.transform.rotation;
+        fx.connectedBody = heldObject.GetComponent<Rigidbody>();
+    }
+
+    public void AdvRelease()
+    {
+        if (GetComponent<FixedJoint>())
+        {
+            Destroy(GetComponent<FixedJoint>());
+
+            heldObject.GetComponent<Rigidbody>().velocity = controller.handVelocity * throwForce;
+            heldObject = null;
+        }
     }
 }

@@ -10,6 +10,9 @@ public class VRInput : MonoBehaviour
     private string gripAxis;
     private string triggerAxis;
 
+    public Vector3 handVelocity;
+    private Vector3 previousPosition;
+
     void Awake()
     {
         if (isLeftHand)
@@ -29,5 +32,8 @@ public class VRInput : MonoBehaviour
     {
         gripValue = Input.GetAxis(gripAxis);
         triggerValue = Input.GetAxis(triggerAxis);
+
+        handVelocity = (this.transform.position - previousPosition) / Time.deltaTime;
+        previousPosition = this.transform.position;
     }
 }
