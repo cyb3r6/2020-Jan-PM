@@ -10,6 +10,7 @@ public class MovementPMJan : MonoBehaviour
     public float turnSpeed = 50f;
     public float jumpForce;
     public string mouseAxis;
+    public bool isButtonPressed;
 
     public Vector3 handVelocity;
     private Vector3 previousPosition;
@@ -57,30 +58,39 @@ public class MovementPMJan : MonoBehaviour
 
         #region Rotation using mouse
 
-        transform.Rotate(Vector3.up * Input.GetAxis(mouseAxis) * turnSpeed);
+        //transform.Rotate(Vector3.up * Input.GetAxis(mouseAxis) * turnSpeed);
 
         #endregion
 
         handVelocity = (this.transform.position - previousPosition) / Time.deltaTime;
         previousPosition = this.transform.position;
 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            isButtonPressed = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.T))
+        {
+            isButtonPressed = false;
+        }
+
         #region Rotation using keyboard
-        //if (input.getkey(keycode.e))
-        //{
-        //    transform.rotate(vector3.up);
-        //}
-        //if (input.getkey(keycode.q))
-        //{
-        //    transform.rotate(vector3.down);
-        //}
-        //if (input.getkey(keycode.u))
-        //{
-        //    transform.rotate(vector3.right);
-        //}
-        //if (input.getkey(keycode.n))
-        //{
-        //    transform.rotate(vector3.left);
-        //}
+        if (Input.GetKey(KeyCode.E))
+        {
+            transform.Rotate(Vector3.up * Time.deltaTime * turnSpeed);
+        }
+        if (Input.GetKey(KeyCode.Q))
+        {
+            transform.Rotate(Vector3.down * Time.deltaTime * turnSpeed);
+        }
+        if (Input.GetKey(KeyCode.U))
+        {
+            transform.Rotate(Vector3.right * Time.deltaTime * turnSpeed);
+        }
+        if (Input.GetKey(KeyCode.N))
+        {
+            transform.Rotate(Vector3.left * Time.deltaTime * turnSpeed);
+        }
         #endregion
 
 
