@@ -17,7 +17,6 @@ public class SimHandTeleporation : MonoBehaviour
         movementPMJanScript = GetComponent<MovementPMJan>();
         laser = GetComponent<LineRenderer>();
     }
-
     
     void Update()
     {
@@ -32,18 +31,35 @@ public class SimHandTeleporation : MonoBehaviour
 
                 laser.enabled = true;
 
-                shouldTeleport = true;
+                shouldTeleport = true;                
+
             }
         }
         else if(movementPMJanScript.isButtonPressed == false)
         {
             if(shouldTeleport == true)
             {
-                simHand.position = hitPosition;
+                float offset = Offset();
+
+                simHand.position = new Vector3(hitPosition.x, hitPosition.y + offset, hitPosition.z);
                 shouldTeleport = false;
                 laser.enabled = false;
             }
         }
+    }
 
+    private float Offset()
+    {
+        RaycastHit offsetHit;
+        if(Physics.Raycast(simHand.position, -simHand.up, out offsetHit))
+        {
+            Vector3 distance = simHand.position - offsetHit.point;
+
+            return distance.y;
+        }
+        else
+        {
+            return default;     // default value of a float = 0.0f, default of a bool = false, string = null
+        }
     }
 }
