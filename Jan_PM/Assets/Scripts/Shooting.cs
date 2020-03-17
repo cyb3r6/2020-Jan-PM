@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shooting : MonoBehaviour
+public class Shooting : GrabbableObjectSimHand
 {
     public GameObject prefab;
     GameObject temp;
@@ -10,17 +10,29 @@ public class Shooting : MonoBehaviour
     public float shootingForce;
     public ShotCounter shotCounterScript;
 
+    //private GrabbableObjectSimHand grabbableSimHand;
+
+    void Start()
+    {
+        //grabbableSimHand = GetComponent<GrabbableObjectSimHand>();
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (isBeingHeld == true)
         {
-            temp = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
-
-            temp.GetComponent<Rigidbody>().AddForce(temp.transform.forward * shootingForce);
-
-            Destroy(temp, 5);
-            shotCounterScript.shotsFired++;
+            if (simHandController.mouseLeftHeld == true)
+            {
+                Interactable();
+            }
         }
+    }
+
+    public void Interactable()
+    {
+        temp = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
+        temp.GetComponent<Rigidbody>().AddForce(temp.transform.forward * shootingForce);
+        Destroy(temp, 5);
+        shotCounterScript.shotsFired++;
     }
 }

@@ -14,4 +14,6 @@ public class MainIntro : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
+
+
 }
