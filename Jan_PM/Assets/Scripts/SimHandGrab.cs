@@ -59,12 +59,12 @@ public class SimHandGrab : MonoBehaviour
         }
 
         #region Using BroadcastMessage
-        
+        /*
         if (Input.GetKeyDown(KeyCode.Mouse0) && heldObject)
         {
             heldObject.BroadcastMessage("Interactable");
         }
-        
+        */
         #endregion
 
     }

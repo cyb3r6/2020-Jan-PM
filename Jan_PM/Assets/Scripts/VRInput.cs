@@ -8,6 +8,7 @@ public class VRInput : MonoBehaviour
     public float gripValue;
     public float triggerValue;
     public bool isThumbstickPressed;
+    public bool isTriggerPressed;
     public Vector2 thumbstick;
 
 
@@ -60,7 +61,14 @@ public class VRInput : MonoBehaviour
         {
             isThumbstickPressed = false;
         }
-
+        if(Input.GetAxis(triggerAxis) > 0.5f)
+        {
+            isTriggerPressed = true;
+        }
+        if (Input.GetAxis(triggerAxis) < 0.5f)
+        {
+            isTriggerPressed = false;
+        }
 
         handVelocity = (this.transform.position - previousPosition) / Time.deltaTime;
         previousPosition = this.transform.position;
