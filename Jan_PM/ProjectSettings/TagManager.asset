@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Paintable
   - SpringButton
+  - Destroyable
   layers:
   - Default
   - TransparentFX
